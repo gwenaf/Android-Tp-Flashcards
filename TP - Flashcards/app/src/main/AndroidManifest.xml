@@ -12,20 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TP_Flashcard"
         tools:targetApi="31">
-
-        <!-- Splash Screen Configuration -->
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true"
-            android:theme="@style/Theme.TP_Flashcard.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!-- Main Activity Configuration -->
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
