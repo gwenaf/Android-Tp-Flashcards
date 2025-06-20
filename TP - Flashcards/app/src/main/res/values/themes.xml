@@ -2,4 +2,9 @@
 <resources>
 
     <style name="Theme.TP_Flashcard" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.TP_Flashcard.Splash" parent="android:Theme.Material.Dialog.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
 </resources>
