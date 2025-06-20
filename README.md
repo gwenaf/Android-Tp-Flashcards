@@ -68,7 +68,8 @@ J'ai pris la liberté de modifier les éléments du squelette d'application.
     - Refactorisation du code
     - Explication des bugs non corrigeables via l'IDE
 
-- ChatGPT
+- ChatGPT & LeChat Mistral
     - Création de la DA de l'application
     - Correction "avancée" des problèmes rencontrés
     - Création du set de catégories/questions
+    - Assistance au développement des animations
