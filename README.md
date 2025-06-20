@@ -4,6 +4,13 @@
 ## Présentation du projet
 Application mobile Android en **Kotlin** utilisant une architecture **MVVM**, avec le kit d'outils **Jetpack Compose**. Une persistance des données à également été rajoutée avec la bibliothèque **Room**
 
+## Capture du projet
+
+![Capture d'écran du menu des catégories](./ressources/category_screen.png)
+![Capture d'écran du menu des questions](./ressources/question_screen.png)
+<br>
+![Gif d'animation du retournement de la carte](./ressources/retournement_carte.gif)
+
 ## Caractéristiques techniques
 - **Langage** : Kotlin
 - **Architecture** : MVVM (Model-View-ViewModel)
