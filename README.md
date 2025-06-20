@@ -8,8 +8,6 @@ Application mobile Android en **Kotlin** utilisant une architecture **MVVM**, av
 
 ![Capture d'écran du menu des catégories](./ressources/category_screen.png)
 ![Capture d'écran du menu des questions](./ressources/question_screen.png)
-<br>
-![Gif d'animation du retournement de la carte](./ressources/retournement_carte.gif)
 
 ## Caractéristiques techniques
 - **Langage** : Kotlin
