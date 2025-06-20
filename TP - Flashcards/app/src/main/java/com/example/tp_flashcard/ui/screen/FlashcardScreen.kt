@@ -13,6 +13,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,7 +22,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import com.example.tp_flashcard.viewmodel.FlashcardViewModel
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -45,6 +45,7 @@ import com.example.tp_flashcard.model.Flashcard
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.clipToBounds
 
 
 @Composable
@@ -72,9 +73,12 @@ fun FlashcardScreen(
     val currentIndex = uiState.currentIndex
     val totalCards = uiState.flashcards.size
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp)
+    ) {
         LinearProgressIndicator(
-        progress = { if (totalCards > 0) currentIndex.toFloat() / totalCards else 0f },
+        progress = { (currentIndex + 1f) / totalCards }, // use of lambda seems mandatory to avoid deprecation warning
         modifier = Modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.primary
         )
@@ -93,7 +97,12 @@ fun FlashcardScreen(
                 }
             ) { index ->
                 val flashcard = uiState.flashcards[index]
-                FlashcardView(flashcard = flashcard)
+                FlashcardView(
+                    flashcard = flashcard,
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .aspectRatio(1.6f)
+                )
             }
         }
 
@@ -101,8 +110,9 @@ fun FlashcardScreen(
 
         Button(
             onClick = { flashcardViewModel.moveToNextCard() },
-            enabled = !uiState.isFinished,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            enabled = true,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            shape = MaterialTheme.shapes.small
         ) {
             Text(text = if (currentIndex < totalCards - 1) "Suivant" else "Terminé")
         }
@@ -110,7 +120,7 @@ fun FlashcardScreen(
 }
 
 @Composable
-fun FlashcardView(flashcard: Flashcard){
+fun FlashcardView(flashcard: Flashcard, modifier: Modifier){
     val rotation = remember { Animatable(0f) }
     var isFront by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
@@ -123,12 +133,12 @@ fun FlashcardView(flashcard: Flashcard){
     }
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .width(250.dp)
             .height(160.dp)
             .graphicsLayer{
                 rotationY = rotation.value
-                cameraDistance = 8 * density
+                cameraDistance = 12 * density
             }
             .clickable{
                 coroutineScope.launch {
@@ -137,11 +147,20 @@ fun FlashcardView(flashcard: Flashcard){
                     isFront = !isFront
                 }
             },
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        shape = RoundedCornerShape(8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        ),
+        shape = MaterialTheme.shapes.medium,
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
-        Box(modifier = Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .clipToBounds(), // avoids clipping for long texts
+            contentAlignment = Alignment.Center
+        ) {
             if (rotation.value <= 90f) {
                 // Afficher le recto (question)
                 Text(

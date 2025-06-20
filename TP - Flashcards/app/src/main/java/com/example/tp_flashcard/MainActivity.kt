@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.tp_flashcard.navigation.FlashcardNavHost
 import com.example.tp_flashcard.repository.FlashcardRepository
+import com.example.tp_flashcard.ui.screen.Background
+import com.example.tp_flashcard.ui.theme.TP_FlashcardTheme
 import com.example.tp_flashcard.viewmodel.HomeViewModel
 
 class MainActivity : ComponentActivity() {
@@ -17,7 +19,11 @@ class MainActivity : ComponentActivity() {
         FlashcardRepository.initDatabase(applicationContext)
 
         setContent {
-            FlashcardNavHost(homeViewModel = homeViewModel)
+            TP_FlashcardTheme {
+                Background {
+                    FlashcardNavHost(homeViewModel = homeViewModel)
+                }
+            }
         }
     }
 }
