@@ -3,10 +3,10 @@ package com.example.tp_flashcard.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.tp_flashcard.model.FlashcardCategory
 import com.example.tp_flashcard.ui.screen.FlashcardScreen
@@ -16,10 +16,9 @@ import com.example.tp_flashcard.viewmodel.HomeViewModel
 
 @Composable
 fun FlashcardNavHost(
+    navController: NavHostController,
     homeViewModel: HomeViewModel
 ) {
-    val navController = rememberNavController()
-
     NavHost(navController = navController, startDestination = "home"){
         composable("home") {
             HomeScreen(
